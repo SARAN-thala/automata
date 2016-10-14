@@ -1,0 +1,9 @@
+TODO
+.idea/
+out/
+rough/
+src/Alphabet.java
+src/State.java
+src/States.java
+src/Transitions.java
+tuple.json
