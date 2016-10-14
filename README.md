@@ -1,2 +1,5 @@
-DFA
-# automata
+## automata
+
+####about DFA and NFA
+  
+
