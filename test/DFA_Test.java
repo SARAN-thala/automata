@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -19,29 +19,25 @@ public class DFA_Test {
         transitions.set("q3", "1", "q3");
         transitions.set("q3", "0", "q3");
 
-        String[] states = new String[3];
-        states[0] = "q1"; //initial state
-        states[1] = "q2"; //final state
-        states[2] = "q3"; //dead state
+        ArrayList<String> states = new ArrayList<>(asList("q1", "q2", "q3")); // "q1":initial state "q2":final state "q3":dead state
 
-        Alphabets alphabets = new Alphabets("0,1");
+        Alphabets alphabets = new Alphabets(new ArrayList<>(asList("1","0")));
 
-        String[] finalState = new String[1];
-        finalState[0] = "q2";
+        ArrayList<String> finalState = new ArrayList<>(asList("q2"));
 
-        String initialState = new String("q1");
+        String initialState = "q1";
+        Tuple tuple = new Tuple(alphabets, states, transitions, initialState, finalState);
+        DFA dfa = new DFA(tuple);
 
-        DFA dfa = new DFA(alphabets, states, transitions, initialState, finalState );
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("a"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1", "0"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1","0","0"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1","0","0","0"))));
 
-        assertEquals(false, dfa.isLangPasses("a"));
-        assertEquals(true, dfa.isLangPasses("1"));
-        assertEquals(true, dfa.isLangPasses("10"));
-        assertEquals(true, dfa.isLangPasses("100"));
-        assertEquals(true, dfa.isLangPasses("1000"));
-
-        assertEquals(false, dfa.isLangPasses("0"));
-        assertEquals(false, dfa.isLangPasses("1001"));
-        assertEquals(false, dfa.isLangPasses("0111"));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("0"))));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("1","0","0","1"))));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("0","1","1","1"))));
     }
 
 
@@ -62,26 +58,20 @@ public class DFA_Test {
         transitions.set("q6", "1", "q6");
         transitions.set("q6", "0", "q6");
 
-        String[] states = new String[6];
-        states[0] = "q1"; //initial state
-        states[1] = "q2";
-        states[2] = "q3";
-        states[3] = "q4";
-        states[4] = "q5"; //final state
-        states[5] = "q6"; //dead state
+        ArrayList<String> states = new ArrayList<>(asList("q1", "q2", "q3", "q4", "q5", "q6")); // "q1":initial state "q5":final state "q6":dead state
 
-        Alphabets alphabets = new Alphabets("0,1");
+        Alphabets alphabets = new Alphabets(new ArrayList<>(asList("0", "1")));
 
         String initialState = "q1";
 
-        String[] finalState = new String[1];
-        finalState[0] = "q5";
+        ArrayList<String> finalState = new ArrayList<>(asList("q5"));
 
-        DFA dfa = new DFA(alphabets, states, transitions, initialState, finalState );
+        Tuple tuple = new Tuple(alphabets, states, transitions, initialState, finalState);
+        DFA dfa = new DFA(tuple);
 
-        assertEquals(true, dfa.isLangPasses("101001"));
-        assertEquals(true, dfa.isLangPasses("1001"));
-        assertEquals(false, dfa.isLangPasses("001"));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1", "0", "1", "0", "0", "1"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1", "0", "0", "1"))));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("0", "0", "1"))));
     }
 
 
@@ -100,26 +90,19 @@ public class DFA_Test {
         transitions.set("q5", "1", "q5");
         transitions.set("q5", "0", "q5");
 
-        String[] states = new String[6];
-        states[0] = "q1"; //initial state
-        states[1] = "q2"; //final state
-        states[2] = "q3";
-        states[3] = "q4";
-        states[4] = "q5"; //final state
+        ArrayList<String> states = new ArrayList<>(asList("q1", "q2", "q3", "q4", "q5"));// q1 initial state; q2 final state; q5 final state
 
-        Alphabets alphabets = new Alphabets("0,1");
+        Alphabets alphabets = new Alphabets(new ArrayList<>(asList("0", "1")));
 
         String initialState = "q1";
 
-        String[] finalState = new String[2];
-        finalState[0] = "q2";
-        finalState[1] = "q5";
+        ArrayList<String> finalState = new ArrayList<>(asList("q2", "q5"));
 
-        DFA dfa = new DFA(alphabets, states, transitions, initialState, finalState );
+        Tuple tuple = new Tuple(alphabets, states, transitions, initialState, finalState);
+        DFA dfa = new DFA(tuple);
 
-        assertEquals(false, dfa.isLangPasses("a"));
-        assertEquals(true, dfa.isLangPasses("100"));
-        assertEquals(false, dfa.isLangPasses("111"));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("a"))));
+        assertTrue(dfa.isLangPasses(new ArrayList<>(asList("1", "0", "0"))));
+        assertFalse(dfa.isLangPasses(new ArrayList<>(asList("1", "1", "1"))));
     }
-
 }

@@ -1,6 +1,8 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 public class TransitionTest {
     @Test
@@ -9,6 +11,8 @@ public class TransitionTest {
         transition.set("q1", "1", "q2");
 
         assertEquals("q2", transition.isNextState("q1", "1"));
+        assertNotEquals("q1", transition.isNextState("q1", "1"));
+        assertNotEquals("q2", transition.isNextState("q1", "2"));
     }
 
     @Test
@@ -16,7 +20,6 @@ public class TransitionTest {
         Transition transition = new Transition();
         transition.set("q1", "0", "q1");
 
-        assertEquals(null, transition.isNextState("q1", "x"));
+        assertNull(transition.isNextState("q1", "x"));
     }
-
 }

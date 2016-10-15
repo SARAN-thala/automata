@@ -1,17 +1,20 @@
 import java.util.ArrayList;
 
-public class Alphabets {
+class Alphabets {
 
-    private String alphabets;
+    private ArrayList<String> alphabets;
 
-    public Alphabets(String alphabets) {
+    public Alphabets(ArrayList<String> alphabets) {
         this.alphabets = alphabets;
     }
 
-    public boolean isValidInput(String[] inputString) {
+    boolean isValidInput(ArrayList<String> inputString) {
         boolean isValid = false;
         for (String s: inputString) {
             isValid = alphabets.contains(s);
+            if(!isValid){
+                return isValid;
+            }
         }
         return isValid;
     }
