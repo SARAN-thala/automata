@@ -35,3 +35,4 @@ public class AlphabetsTest {
         assertTrue(alphabets.isValidInput(input2));
     }
 }
+
